@@ -1,0 +1,40 @@
+{
+  "name": "@fe-tools/vue-poster",
+  "version": "0.0.1",
+  "description": "vue component, easy create canvas poster",
+  "keywords": [
+    "vue",
+    "vue-plugin",
+    "vue-component",
+    "canvas"
+  ],
+  "author": "Wizard67<wizard67.hjn@gmail.com>",
+  "license": "MIT",
+  "main": "dist/vue-poster.min.js",
+  "module": "dist/vue-poster.esm.js",
+  "typings": "types/index.d.ts",
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "types"
+  ],
+  "scripts": {
+    "watch": "rollup -c -w",
+    "build": "rollup -c"
+  },
+  "peerDependencies": {
+    "vue": "^2.5.22"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "rollup": "^1.20.3",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-terser": "^5.1.1",
+    "rollup-plugin-typescript2": "^0.24.0",
+    "rollup-plugin-vue": "^5.0.1",
+    "typescript": "^3.6.2",
+    "vue": "^2.6.10",
+    "vue-template-compiler": "^2.6.10"
+  }
+}

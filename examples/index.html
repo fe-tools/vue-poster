@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Vue Poster Demo</title>
+  <style>
+    body {
+      margin: 0;
+    }
+    #demo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .my-poster {
+      width: 375px;
+      height: 600px;
+    }
+  </style>
+</head>
+<body>
+  <div id="demo">
+    <poster
+      poster-class="my-poster"
+      :width="375" :height="600"
+      :ratio="1"
+      :quality="0.95"
+      type="jpeg"
+      background-color="lightpink"
+    >
+      <poster-image
+        :width="375" :height="600"
+        :offset-y="0" :offset-x="0"
+        src="./bg.jpg"
+      ></poster-image>
+
+      <poster-image
+        :width="80" :height="80"
+        :offset-x="10" :offset-y="20"
+        src="https://yxs-web.oss-cn-beijing.aliyuncs.com/57c032264ffc1b52364fc67710008e6c.jpg?tmp=VUEPOSTER"
+        cors
+      ></poster-image>
+
+      <poster-text
+        :offset-x="100" :offset-y="500"
+        color="white"
+        font="normal 400 12px sans-serif"
+      >
+        Wizard67
+      </poster-text>
+
+      <template #loading>
+        <poster-loading color="#bdbdbd" background-color="rgba(0, 0, 0, 0.7)"></poster-loading>
+      </template>
+    </poster>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="../dist/vue-poster.js"></script>
+  <script>
+    const app = new Vue()
+    app.$mount('#demo')
+  </script>
+</body>
+</html>
