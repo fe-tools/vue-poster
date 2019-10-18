@@ -1,4 +1,4 @@
-import { Element, DrwaElement } from './element';
+import { Element, DrawElement } from './element';
 declare type ImageConfig = {
     width?: number;
     height?: number;
@@ -7,6 +7,6 @@ declare type ImageConfig = {
     src: string;
     cors?: boolean;
 };
-declare const drwaImage: DrwaElement<ImageConfig>;
-export default drwaImage;
+declare const drawImage: DrawElement<ImageConfig>;
+export default drawImage;
 export declare type ImageComponent = Element & ImageConfig;

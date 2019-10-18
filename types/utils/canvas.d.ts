@@ -4,9 +4,11 @@ interface CanvasProperty {
     ratio?: number;
     backgroundColor?: string;
 }
+declare type CreateCanvas = (config: CanvasProperty) => void;
+declare type CanvasToDataURL = (type?: string, quality?: number) => string;
 export declare const canvasElement: HTMLCanvasElement;
 export declare const canvasContext: CanvasRenderingContext2D | null;
 export declare let canvasRatio: number;
-export declare const createCanvas: (configs: CanvasProperty) => void;
-export declare const canvasToDataURL: (type?: string | undefined, quality?: number | undefined) => string;
+export declare const createCanvas: CreateCanvas;
+export declare const canvasToDataURL: CanvasToDataURL;
 export {};

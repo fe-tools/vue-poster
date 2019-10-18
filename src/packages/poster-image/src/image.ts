@@ -1,5 +1,5 @@
-import { canvasContext, canvasRatio } from './canvas'
-import { Element, DrwaElement } from './element'
+import { canvasContext, canvasRatio } from '../../../utils/canvas'
+import { ElementHandler } from '../../../utils/type'
 
 type ImageConfig = {
   width?: number
@@ -25,7 +25,7 @@ function imageLoader (src: string, cors?: boolean): Promise<HTMLImageElement> {
   })
 }
 
-const drwaImage: DrwaElement<ImageConfig> = async config => {
+const drawImage: ElementHandler<ImageConfig> = async config => {
   const {
     width,
     height,
@@ -44,5 +44,4 @@ const drwaImage: DrwaElement<ImageConfig> = async config => {
   return new Promise(resolve => resolve())
 }
 
-export default drwaImage
-export type ImageComponent = Element & ImageConfig
+export default drawImage

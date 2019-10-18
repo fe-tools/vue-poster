@@ -1,4 +1,4 @@
-import { Element, DrwaElement } from './element';
+import { Element, DrawElement } from './element';
 declare type TextConfig = {
     offsetX: number;
     offsetY: number;
@@ -6,6 +6,6 @@ declare type TextConfig = {
     color?: string;
     font?: string;
 };
-declare const drwaText: DrwaElement<TextConfig>;
-export default drwaText;
+declare const drawText: DrawElement<TextConfig>;
+export default drawText;
 export declare type TextComponent = Element & TextConfig;

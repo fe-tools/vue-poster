@@ -1,5 +1,5 @@
-import { canvasContext } from './canvas'
-import { Element, DrwaElement } from './element'
+import { canvasContext } from '../../../utils/canvas'
+import { ElementHandler } from '../../../utils/type'
 
 type TextConfig = {
   offsetX: number
@@ -10,7 +10,7 @@ type TextConfig = {
   font?: string
 }
 
-const drwaText: DrwaElement<TextConfig> = config => {
+const drawText: ElementHandler<TextConfig> = config => {
   const {
     offsetX = 0,
     offsetY = 0,
@@ -27,5 +27,4 @@ const drwaText: DrwaElement<TextConfig> = config => {
   return new Promise((resolve) => resolve())
 }
 
-export default drwaText
-export type TextComponent = Element & TextConfig
+export default drawText

@@ -13,7 +13,6 @@ export default {
   output: [
     { file: 'dist/vue-poster.js', name: 'vuePoster', format: 'umd', ...extra },
     { file: 'dist/vue-poster.min.js', name: 'vuePoster', format: 'umd', ...extra },
-    { file: 'dist/vue-poster.common.js', name: 'vuePoster', format: 'cjs', ...extra },
     { file: 'dist/vue-poster.esm.js', format: 'es', ...extra }
   ],
   external: [ 'vue' ],

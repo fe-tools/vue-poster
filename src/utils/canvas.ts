@@ -5,12 +5,14 @@ interface CanvasProperty {
   backgroundColor?: string
 }
 
+type CreateCanvas = (config: CanvasProperty) => void
+type CanvasToDataURL = (type?: string, quality?: number) => string
+
 export const canvasElement = document.createElement('canvas')
 export const canvasContext = canvasElement.getContext('2d')
-// Get after setCanvasProperty
 export let canvasRatio: number = 1
 
-export const setCanvasProperty = function(configs: CanvasProperty): void {
+export const createCanvas:CreateCanvas = function(configs) {
   const {
     width = 300,
     height = 300,
@@ -30,7 +32,7 @@ export const setCanvasProperty = function(configs: CanvasProperty): void {
   }
 }
 
-export const canvasToDataURL = function(type: string, quality: number): string {
+export const canvasToDataURL:CanvasToDataURL = function(type, quality) {
   return canvasElement.toDataURL(
     type === 'png'? 'image/png': 'image/jpeg',
     quality || 1

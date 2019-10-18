@@ -1,8 +1,8 @@
 import Vue from 'vue'
-import Poster from './components/poster.vue'
-import PosterImage from './components/poster-image.vue'
-import PosterText from './components/poster-text.vue'
-import PosterLoading from './components/poster-loading.vue'
+import Poster from './packages/poster/'
+import PosterImage from './packages/poster-image/'
+import PosterText from './packages/poster-text'
+import PosterLoading from './packages/poster-loading'
 
 export {
   Poster,

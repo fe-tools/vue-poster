@@ -1,6 +1,7 @@
 import Vue from 'vue';
+import { ElementHandler } from '../../../utils/type';
 declare const _default: import("vue").VueConstructor<{
-    elements: any[];
+    elements: ElementHandler<{}>[];
     imageDate: string;
 } & {
     drawPoster(): void;
