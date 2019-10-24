@@ -5,12 +5,22 @@ interface CanvasProperty {
   backgroundColor?: string
 }
 
+export interface CanvasContext {
+  readonly element: HTMLCanvasElement,
+  readonly context: CanvasRenderingContext2D,
+  ratio: number
+}
+
 type CreateCanvas = (config: CanvasProperty) => void
 type CanvasToDataURL = (type?: string, quality?: number) => string
 
-export const canvasElement = document.createElement('canvas')
-export const canvasContext = canvasElement.getContext('2d')
-export let canvasRatio: number = 1
+const canvasElement = document.createElement('canvas')
+
+export const canvas: CanvasContext = {
+  element: canvasElement,
+  context: canvasElement.getContext('2d')!,
+  ratio: 1
+}
 
 export const createCanvas:CreateCanvas = function(configs) {
   const {
@@ -20,15 +30,15 @@ export const createCanvas:CreateCanvas = function(configs) {
     backgroundColor
   } = configs
 
-  canvasRatio = ratio
+  canvas.ratio = ratio
 
-  canvasElement.width = width * canvasRatio
-  canvasElement.height = height * canvasRatio
-  canvasContext!.scale(canvasRatio, canvasRatio)
+  canvas.element.width = width * ratio
+  canvas.element.height = height * ratio
+  canvas.context.scale(ratio, ratio)
 
   if (typeof backgroundColor === 'string') {
-    canvasContext!.fillStyle = backgroundColor
-    canvasContext!.fillRect(0, 0, width * canvasRatio, height * canvasRatio)
+    canvas.context.fillStyle = backgroundColor
+    canvas.context.fillRect(0, 0, width * ratio, height * ratio)
   }
 }
 

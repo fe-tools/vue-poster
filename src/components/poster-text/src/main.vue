@@ -16,13 +16,13 @@ export default Vue.extend({
   mounted() {
     const text = (this.$slots.default && this.$slots.default[0].text) || ''
 
-    dispatch(this, 'poster', 'on-poster-element-mounted', (canvas, context) => drawText({
+    dispatch(this, 'poster', 'on-poster-element-mounted', canvas => drawText({
       offsetX: this.offsetX,
       offsetY: this.offsetY,
       color: this.color,
       font: this.font,
       text: text.trim()
-    }, canvas, context))
+    }, canvas))
   },
   render(h) {
     return h()

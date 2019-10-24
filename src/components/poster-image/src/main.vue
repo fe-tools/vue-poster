@@ -3,7 +3,6 @@ import Vue from 'vue'
 import { dispatch } from '../../../helper/emitter'
 import drawImage from './image'
 
-
 export default Vue.extend({
   name: 'poster-image',
   props: {
@@ -18,14 +17,14 @@ export default Vue.extend({
     }
   },
   mounted() {
-    dispatch(this, 'poster', 'on-poster-element-mounted', (canvas, context) => drawImage({
+    dispatch(this, 'poster', 'on-poster-element-mounted', canvas => drawImage({
       width: this.width,
       height: this.height,
       offsetX: this.offsetX,
       offsetY: this.offsetY,
       src: this.src,
       cors: this.cors
-    }, canvas, context))
+    }, canvas))
   },
   render(h) {
     return h()

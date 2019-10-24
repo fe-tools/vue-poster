@@ -1,6 +1,5 @@
 import { warn } from '../../../helper/log'
 
-import { canvasRatio } from '../../../helper/canvas'
 import { ElementHandler } from '../../../helper/type'
 
 type ImageConfig = {
@@ -27,7 +26,7 @@ function imageLoader (src: string, cors?: boolean): Promise<HTMLImageElement> {
   })
 }
 
-const drawImage: ElementHandler<ImageConfig> = async (config, _, context) => {
+const drawImage: ElementHandler<ImageConfig> = async (config, canvas) => {
   const {
     width,
     height,
@@ -39,10 +38,10 @@ const drawImage: ElementHandler<ImageConfig> = async (config, _, context) => {
 
   const image = await imageLoader(src, cors)
 
-  const currentWidth = width || (image.width / canvasRatio)
-  const currentHeight = height || (image.height / canvasRatio)
+  const currentWidth = width || (image.width / canvas.ratio)
+  const currentHeight = height || (image.height / canvas.ratio)
 
-  context!.drawImage(image, offsetX, offsetY, currentWidth, currentHeight)
+  canvas.context.drawImage(image, offsetX, offsetY, currentWidth, currentHeight)
 
   return new Promise(resolve => resolve())
 }

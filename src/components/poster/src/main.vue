@@ -16,12 +16,12 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import Loading from '../../poster-loading'
+import Loading from '../../poster-loading/'
 
-import { createCanvas, canvasToDataURL, canvasElement, canvasContext } from '../../../helper/canvas'
+import { createCanvas, canvasToDataURL, canvas, CanvasContext } from '../../../helper/canvas'
 import { ElementHandler } from '../../../helper/type'
 
-type Handlers = Array<(canvas: HTMLCanvasElement, context: CanvasRenderingContext2D) => ElementHandler>
+type Handlers = Array<(canvas: CanvasContext) => ElementHandler>
 
 export default Vue.extend({
   name: 'poster',
@@ -49,7 +49,7 @@ export default Vue.extend({
   watch: {
     async elements(handlers: Handlers) {
       for (let i = 0; i < handlers.length; i++) {
-        await handlers[i](canvasElement, canvasContext!)
+        await handlers[i](canvas)
       }
       this.drawPoster()
     }

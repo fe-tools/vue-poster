@@ -1,4 +1,3 @@
-import { canvasContext } from '../../../helper/canvas'
 import { ElementHandler } from '../../../helper/type'
 
 type TextConfig = {
@@ -10,7 +9,7 @@ type TextConfig = {
   font?: string
 }
 
-const drawText: ElementHandler<TextConfig> = (config) => {
+const drawText: ElementHandler<TextConfig> = (config, canvas) => {
   const {
     offsetX = 0,
     offsetY = 0,
@@ -19,10 +18,10 @@ const drawText: ElementHandler<TextConfig> = (config) => {
     font = 'normal 400 14px sans-serif'
   } = config
 
-  canvasContext!.fillStyle = color
-  canvasContext!.font = font
-  canvasContext!.textBaseline = 'top'
-  canvasContext!.fillText(text, offsetX, offsetY)
+  canvas.context.fillStyle = color
+  canvas.context.font = font
+  canvas.context.textBaseline = 'top'
+  canvas.context.fillText(text, offsetX, offsetY)
 
   return new Promise((resolve) => resolve())
 }

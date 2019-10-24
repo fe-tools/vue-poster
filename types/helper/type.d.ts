@@ -1,1 +1,2 @@
-export declare type ElementHandler<T = {}> = (config: T, canvas: HTMLCanvasElement, context: CanvasRenderingContext2D) => Promise<any>;
+import { CanvasContext } from './canvas';
+export declare type ElementHandler<T = {}> = (config: T, canvas: CanvasContext) => Promise<any>;

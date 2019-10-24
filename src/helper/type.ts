@@ -1,5 +1,6 @@
+import { CanvasContext } from './canvas'
+
 export type ElementHandler<T = {}> = (
   config: T,
-  canvas: HTMLCanvasElement,
-  context: CanvasRenderingContext2D
+  canvas: CanvasContext
 ) => Promise<any>
