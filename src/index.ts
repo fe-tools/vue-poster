@@ -1,19 +1,9 @@
-import Vue from 'vue'
-import Poster from './packages/poster/'
-import PosterImage from './packages/poster-image/'
-import PosterText from './packages/poster-text'
-import PosterLoading from './packages/poster-loading'
+import { warn } from './helper/log'
+export { default as Poster } from './components/poster'
+export { default as PosterImage } from './components/poster-image'
+export { default as PosterText } from './components/poster-text'
+export { default as PosterLoading } from './components/poster-loading'
 
-export {
-  Poster,
-  PosterImage,
-  PosterText,
-  PosterLoading
-}
-
-if (typeof window !== 'undefined' && window.Vue) {
-  Vue.component('poster', Poster)
-  Vue.component('poster-image', PosterImage)
-  Vue.component('poster-text', PosterText)
-  Vue.component('poster-loading', PosterLoading)
+if (typeof window === 'undefined') {
+  warn(`You are using a whole package, please use https://www.npmjs.com/package/babel-plugin-import to reduce app bundle size.`)
 }

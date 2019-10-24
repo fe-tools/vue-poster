@@ -10,12 +10,11 @@
   ],
   "author": "Wizard67<wizard67.hjn@gmail.com>",
   "license": "MIT",
-  "main": "dist/vue-poster.min.js",
-  "module": "dist/vue-poster.esm.js",
+  "main": "lib/index.js",
   "typings": "types/index.d.ts",
   "sideEffects": false,
   "files": [
-    "dist",
+    "lib",
     "types"
   ],
   "scripts": {

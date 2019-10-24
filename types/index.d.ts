@@ -1,5 +1,4 @@
-import Poster from './packages/poster/';
-import PosterImage from './packages/poster-image/';
-import PosterText from './packages/poster-text';
-import PosterLoading from './packages/poster-loading';
-export { Poster, PosterImage, PosterText, PosterLoading };
+export { default as Poster } from './components/poster';
+export { default as PosterImage } from './components/poster-image';
+export { default as PosterText } from './components/poster-text';
+export { default as PosterLoading } from './components/poster-loading';
