@@ -14,6 +14,7 @@
   "typings": "types/index.d.ts",
   "sideEffects": false,
   "files": [
+    "src",
     "lib",
     "types"
   ],
