@@ -1,2 +1,1 @@
-import PosterLoading from './src/main.vue';
-export default PosterLoading;
+export { default } from './src/main.vue';

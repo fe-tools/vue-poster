@@ -1,2 +1,1 @@
-import PosterText from './src/main.vue';
-export default PosterText;
+export { default } from './src/main.vue';

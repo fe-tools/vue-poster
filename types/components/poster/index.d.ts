@@ -1,2 +1,1 @@
-import Poster from './src/main.vue';
-export default Poster;
+export { default } from './src/main.vue';

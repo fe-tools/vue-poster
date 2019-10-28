@@ -1,5 +1,3 @@
-import { warn } from '../../../helper/log'
-
 import { ElementHandler } from '../../../helper/type'
 
 type ImageConfig = {
@@ -21,7 +19,7 @@ function imageLoader (src: string, cors?: boolean): Promise<HTMLImageElement> {
 
   return new Promise((resolve) => {
     image.onload = () => resolve(image)
-    image.onerror = () => warn(`Failed to load image at ${src}`)
+    image.onerror = () => console.warn(`[vue-poster]: Failed to load image at ${src}`)
     image.src = src
   })
 }

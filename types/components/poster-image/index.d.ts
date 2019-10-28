@@ -1,2 +1,1 @@
-import PosterImage from './src/main.vue';
-export default PosterImage;
+export { default } from './src/main.vue';
