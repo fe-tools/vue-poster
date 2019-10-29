@@ -1,8 +1,8 @@
 import { ElementHandler } from '../../../helper/type'
 
 type ImageConfig = {
-  width?: number
-  height?: number
+  width: number | 'auto'
+  height: number | 'auto'
   offsetX: number
   offsetY: number
 
@@ -26,8 +26,8 @@ function imageLoader (src: string, cors?: boolean): Promise<HTMLImageElement> {
 
 const drawImage: ElementHandler<ImageConfig> = async (config, canvas) => {
   const {
-    width,
-    height,
+    width = 'auto',
+    height = 'auto',
     offsetX = 0,
     offsetY = 0,
     src,
@@ -36,8 +36,8 @@ const drawImage: ElementHandler<ImageConfig> = async (config, canvas) => {
 
   const image = await imageLoader(src, cors)
 
-  const currentWidth = width || (image.width / canvas.ratio)
-  const currentHeight = height || (image.height / canvas.ratio)
+  const currentWidth = width === 'auto'? (image.width / canvas.ratio): width
+  const currentHeight = height === 'auto'? (image.height / canvas.ratio): height
 
   canvas.context.drawImage(image, offsetX, offsetY, currentWidth, currentHeight)
 

@@ -1,7 +1,7 @@
 import { ElementHandler } from '../../../helper/type';
 declare type ImageConfig = {
-    width?: number;
-    height?: number;
+    width: number | 'auto';
+    height: number | 'auto';
     offsetX: number;
     offsetY: number;
     src: string;

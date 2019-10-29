@@ -67,8 +67,8 @@ export default {
 | Attribute | Type | Default | Description |
 | -- | -- | -- | -- |
 | src | String | -- | 源文件地址 |
-| width | Number | -- | 宽度 |
-| height | Number | -- | 高度 |
+| width | Number \| `auto` | `auto` | 宽度 |
+| height | Number \| `auto` | `auto` | 高度 |
 | offsetX | Number | `0` | 水平偏移像素 |
 | offsetY | Number | `0` | 垂直偏移像素 |
 | cors | Boolean | `false` | 是否允许 CORS |
