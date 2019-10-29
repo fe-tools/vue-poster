@@ -44,6 +44,7 @@ export default Vue.extend({
   methods: {
     drawPoster() {
       this.imageDate = canvasToDataURL(this.type, this.quality)
+      this.$emit('on-render', this.imageDate)
     }
   },
   watch: {

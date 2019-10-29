@@ -58,6 +58,10 @@ export default {
 | default | 默认插槽，放置海报组件 |
 | loading | 海报渲染时的 Loading 组件 |
 
+| Event | CallBack | Description |
+| -- | -- | -- |
+| on-render | `(base64: String) => void` | 监听海报渲染完成事件 |
+
 ### PosterImage
 
 | Attribute | Type | Default | Description |
