@@ -73,6 +73,17 @@ export default {
 | offsetY | Number | `0` | 垂直偏移像素 |
 | cors | Boolean | `false` | 是否允许 CORS |
 
+### PosterQRCode
+
+| Attribute | Type | Default | Description |
+| -- | -- | -- | -- |
+| text | String | -- | 需要转化成二维码的文本 |
+| width | Number \| `auto` | `auto` | 宽度 |
+| height | Number \| `auto` | `auto` | 高度 |
+| offsetX | Number | `0` | 水平偏移像素 |
+| offsetY | Number | `0` | 垂直偏移像素 |
+| margin | Number | 「点」尺寸的 `2` 倍 | 二维码白边宽度 |
+
 ### PosterTest
 
 | Attribute | Type | Default | Description |

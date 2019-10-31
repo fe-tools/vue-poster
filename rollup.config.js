@@ -10,7 +10,8 @@ export default {
     poster: 'src/components/poster/index.ts',
     'poster-loading': 'src/components/poster-loading/index.ts',
     'poster-image': 'src/components/poster-image/index.ts',
-    'poster-text': 'src/components/poster-text/index.ts'
+    'poster-text': 'src/components/poster-text/index.ts',
+    'poster-qrcode': 'src/components/poster-qrcode/index.ts',
   },
   output: [
     {
@@ -25,7 +26,9 @@ export default {
   external: [ 'vue' ],
   plugins: [
     commonjs(),
-    resolve(),
+    resolve({
+      preferBuiltins: true
+    }),
     typescript({
       objectHashIgnoreUnknownHack: true,
       useTsconfigDeclarationDir: true
