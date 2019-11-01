@@ -22,7 +22,9 @@ export const dispatch: Dispatch = (vm, componentName, eventName, payload) => {
   } else {
     // SFC
     const siblings = parent.$children || []
-    const parents = siblings.filter(vnode => vnode.$options.name === componentName)
+    const parents = siblings.filter(
+      vnode => vnode.$options.name === componentName
+    )
 
     if (parents[0]) {
       parents[0].$emit.apply(parents[0], [eventName, payload])
