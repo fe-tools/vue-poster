@@ -2,12 +2,12 @@ import { ElementHandler } from '../../../helper/type'
 import { imageLoader } from '../../../helper/image'
 
 type ImageConfig = {
-  width: number | 'auto'
-  height: number | 'auto'
-  offsetX: number
-  offsetY: number
+  width?: number | 'auto'
+  height?: number | 'auto'
+  offsetX?: number
+  offsetY?: number
 
-  src: string,
+  src: string
   cors?: boolean
 }
 

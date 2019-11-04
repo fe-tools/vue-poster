@@ -1,12 +1,12 @@
 import { ElementHandler } from '../../../helper/type'
 
 type TextConfig = {
-  offsetX: number
-  offsetY: number
+  offsetX?: number
+  offsetY?: number
 
-  text: string,
-  color?: string,
+  color?: string
   font?: string
+  text: string
 }
 
 const drawText: ElementHandler<TextConfig> = (config, canvas) => {

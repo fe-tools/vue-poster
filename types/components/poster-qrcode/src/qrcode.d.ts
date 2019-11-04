@@ -1,9 +1,9 @@
 import { ElementHandler } from '../../../helper/type';
 declare type QRCodeConfig = {
-    width: number;
-    height: number;
-    offsetX: number;
-    offsetY: number;
+    width?: number | 'auto';
+    height?: number | 'auto';
+    offsetX?: number;
+    offsetY?: number;
     margin?: number;
     text: string;
 };

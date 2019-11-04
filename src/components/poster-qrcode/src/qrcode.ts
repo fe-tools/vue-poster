@@ -3,10 +3,10 @@ import { imageLoader } from '../../../helper/image'
 import qrcode from 'qrcode-generator'
 
 type QRCodeConfig = {
-  width: number
-  height: number
-  offsetX: number
-  offsetY: number
+  width?: number | 'auto'
+  height?: number | 'auto'
+  offsetX?: number
+  offsetY?: number
   margin?: number
 
   text: string
@@ -14,8 +14,8 @@ type QRCodeConfig = {
 
 const drawQRCode:ElementHandler<QRCodeConfig> = async (config, canvas) => {
   const {
-    width,
-    height,
+    width = 'auto',
+    height = 'auto',
     offsetX = 0,
     offsetY = 0,
     margin,
@@ -35,8 +35,8 @@ const drawQRCode:ElementHandler<QRCodeConfig> = async (config, canvas) => {
 
   const image = await imageLoader(QRCodeBase64, false)
 
-  const currentWidth = width || (40 * canvas.ratio)
-  const currentHeight = height || (40 * canvas.ratio)
+  const currentWidth = width === 'auto'? (40 * canvas.ratio): width
+  const currentHeight = height === 'auto'? (40 * canvas.ratio): height
 
   canvas.context.drawImage(image, offsetX, offsetY, currentWidth, currentHeight)
 
