@@ -16,7 +16,7 @@ export default Vue.extend({
   mounted() {
     const text = (this.$slots.default && this.$slots.default[0].text) || ''
 
-    dispatch(this, 'poster', 'on-poster-element-mounted', canvas => drawText({
+    dispatch(this, canvas => drawText({
       offsetX: this.offsetX,
       offsetY: this.offsetY,
       color: this.color,

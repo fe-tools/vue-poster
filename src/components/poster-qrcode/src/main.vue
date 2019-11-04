@@ -14,7 +14,7 @@ export default Vue.extend({
     text: String
   },
   mounted() {
-    dispatch(this, 'poster', 'on-poster-element-mounted', canvas => drawQRCode({
+    dispatch(this, canvas => drawQRCode({
       width: this.width,
       height: this.height,
       offsetX: this.offsetX,

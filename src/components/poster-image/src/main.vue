@@ -17,7 +17,7 @@ export default Vue.extend({
     }
   },
   mounted() {
-    dispatch(this, 'poster', 'on-poster-element-mounted', canvas => drawImage({
+    dispatch(this, canvas => drawImage({
       width: this.width,
       height: this.height,
       offsetX: this.offsetX,

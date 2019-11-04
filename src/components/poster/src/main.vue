@@ -19,6 +19,7 @@ import Vue from 'vue'
 import Loading from '../../poster-loading/'
 
 import { createCanvas, canvasToDataURL, canvas, CanvasContext } from '../../../helper/canvas'
+import { MOUNTED_EVENT } from '../../../helper/emitter'
 import { ElementHandler } from '../../../helper/type'
 
 type Handlers = Array<(canvas: CanvasContext) => ElementHandler>
@@ -56,7 +57,7 @@ export default Vue.extend({
     }
   },
   created() {
-    this.$on('on-poster-element-mounted', (handler: ElementHandler) => {
+    this.$on(MOUNTED_EVENT, (handler: ElementHandler) => {
       this.elements.push(handler)
     })
   },
