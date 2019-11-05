@@ -20,7 +20,7 @@
   ],
   "scripts": {
     "prebuild": "rimraf lib types",
-    "start": "rollup -c -w",
+    "start": "rollup -c -i src/index.ts -w",
     "build": "rollup -c",
     "lint": "eslint src/**/*.ts"
   },
