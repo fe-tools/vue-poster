@@ -10,20 +10,31 @@ interface TextConfig {
   nowrap: boolean
 }
 
-type TextRenderConfig = Omit<TextConfig & {
-  size: number
-}, 'nowrap'>
+type TextRenderConfig = Omit<
+  TextConfig & {
+    size: number
+  },
+  'nowrap'
+>
 
 const SPLIT_RULE = /(\b[a-zA-Z\d]+\b|\s+|.)/
 
-export function calcCharacterSize(context: TextContext, character: string, font?: string): number {
+export function calcCharacterSize(
+  context: TextContext,
+  character: string,
+  font?: string
+): number {
   const ctx = canvas.context
+  /* eslint-disable @typescript-eslint/no-non-null-assertion */
   ctx.font = font || context.font!
   return ctx.measureText(character).width
 }
 
-export function splitText(context: TextContext, vnodes: VNode[]): TextRenderConfig[] {
-  let textnode: TextRenderConfig[] = []
+export function splitText(
+  context: TextContext,
+  vnodes: VNode[]
+): TextRenderConfig[] {
+  const textnode: TextRenderConfig[] = []
 
   let color: TextConfig['color'] = undefined
   let font: TextConfig['font'] = undefined
@@ -32,11 +43,14 @@ export function splitText(context: TextContext, vnodes: VNode[]): TextRenderConf
 
   vnodes.forEach(vnode => {
     if (isVueComponentVNode(vnode)) {
+      /* eslint-disable @typescript-eslint/no-non-null-assertion */
       const props = vnode.componentOptions!.propsData
       color = props && (props as TextConfig).color
       font = props && (props as TextConfig).font
-      character = (vnode.componentOptions!.children![0].text!).trim()
-      nowrap = props && translateVNodePropsDataType((props as TextConfig).nowrap, 'boolean')
+      character = vnode.componentOptions!.children![0].text!.trim()
+      nowrap =
+        props &&
+        translateVNodePropsDataType((props as TextConfig).nowrap, 'boolean')
     } else {
       color = undefined
       font = undefined
@@ -45,16 +59,20 @@ export function splitText(context: TextContext, vnodes: VNode[]): TextRenderConf
     }
 
     // Break word
-    const arr = nowrap ? [ character ] : character.split(SPLIT_RULE)
+    const arr = nowrap ? [character] : character.split(SPLIT_RULE)
 
     arr.forEach(item => {
       if (!item) return
-      textnode.push(JSON.parse(JSON.stringify({
-        color: color,
-        font: font,
-        size: calcCharacterSize(context, item, font),
-        character: item
-      })))
+      textnode.push(
+        JSON.parse(
+          JSON.stringify({
+            color: color,
+            font: font,
+            size: calcCharacterSize(context, item, font),
+            character: item
+          })
+        )
+      )
     })
   })
 
