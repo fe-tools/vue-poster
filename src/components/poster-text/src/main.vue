@@ -11,17 +11,21 @@ export default Vue.extend({
     offsetY: Number,
     offsetX: Number,
     color: String,
-    font: String
+    font: String,
+    lineHeight: Number,
+    border: Boolean
   },
   mounted() {
-    const text = (this.$slots.default && this.$slots.default[0].text) || ''
-
     dispatch(this, canvas => drawText({
+      width: this.width,
+      height: this.height,
       offsetX: this.offsetX,
       offsetY: this.offsetY,
       color: this.color,
       font: this.font,
-      text: text.trim()
+      lineHeight: this.lineHeight,
+      vnodes: this.$slots.default!,
+      border: this.border
     }, canvas))
   },
   render(h) {

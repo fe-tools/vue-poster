@@ -1,11 +1,11 @@
 import Vue from 'vue';
 import { ElementHandler } from '../../../helper/type';
-declare const _default: import("vue").VueConstructor<{
+declare const _default: import("vue/types/vue").ExtendedVue<Vue, {
     elements: ElementHandler<{}>[];
     imageDate: string;
-} & {
+}, {
     drawPoster(): void;
-} & {
+}, unknown, {
     posterClass: string;
     width: number;
     height: number;
@@ -13,5 +13,5 @@ declare const _default: import("vue").VueConstructor<{
     type: string;
     quality: number;
     backgroundColor: string;
-} & Vue>;
+}>;
 export default _default;
