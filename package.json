@@ -22,7 +22,7 @@
     "prebuild": "rimraf lib types",
     "start": "rollup -c -i src/index.ts -w",
     "build": "rollup -c",
-    "lint": "eslint src/**/*.ts"
+    "lint": "eslint src --ext .ts"
   },
   "repository": {
     "type": "git",
