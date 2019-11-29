@@ -21,9 +21,8 @@ const drawImage: ElementHandler<ImageConfig> = async (config, canvas) => {
   } = config
 
   if (!src) {
-    return console.warn(
-      '[vue-poster]: PosterImage component should to set "src" attribute'
-    )
+    /* prettier-ignore */
+    return console.warn('[vue-poster]: PosterImage component should to set "src" attribute')
   }
 
   const image = await imageLoader(src, cors)

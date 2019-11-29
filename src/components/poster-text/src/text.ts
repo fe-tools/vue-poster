@@ -17,17 +17,14 @@ export type TextConfig = {
 const getFontSize = (style: string) => {
   const fontSize = style.match(/\b([\d]+)[a-zA-Z]+\b/)?.[1]
   if (!fontSize) {
-    throw Error(
-      `[vue-poster]: Font attribute '${style}' must include font size`
-    )
+    /* prettier-ignore */
+    throw Error(`[vue-poster]: Font attribute '${style}' must include font size`)
   }
   return Number(fontSize)
 }
 
-const drawText: ElementHandler<TextConfig> = (
-  config,
-  { context, element, ratio }
-) => {
+/* prettier-ignore */
+const drawText: ElementHandler<TextConfig> = (config, { context, element, ratio }) => {
   const {
     offsetX = 0,
     offsetY = 0,

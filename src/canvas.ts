@@ -28,12 +28,19 @@ export const canvas: CanvasContext = {
 }
 
 export function initCanvas(configs: CanvasConfig) {
-  const { width = 300, height = 300, ratio = 1, backgroundColor } = configs
+  /* prettier-ignore */
+  const {
+    width = 300,
+    height = 300,
+    ratio = 1,
+    backgroundColor
+  } = configs
 
   canvas.element.width = width * ratio
   canvas.element.height = height * ratio
   canvas.context.scale(ratio, ratio)
   canvas.ratio = ratio
+
   // draw poster background color
   if (typeof backgroundColor === 'string') {
     canvas.context.fillStyle = backgroundColor
