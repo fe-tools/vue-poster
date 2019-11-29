@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { CanvasContext } from './canvas'
+import { CanvasContext } from '../canvas'
 
 type Dispatch = (
   vm: Vue,

@@ -5,21 +5,26 @@ export const getVueComponentName = (vnode: Vue) => {
 }
 
 export const isVueComponentVNode = (vnode: VNode) => {
-  return vnode.componentOptions && vnode.componentOptions.tag !== undefined
+  return vnode.componentOptions?.tag !== undefined
 }
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
-export const translateVNodePropsDataType = (prop: any, type: string) => {
-  /* eslint-disable @typescript-eslint/no-explicit-any */
-  let propValue: any = null
+export const formateObject = (obj = {}) => {
+  return JSON.parse(JSON.stringify(obj))
+}
 
-  switch (type) {
-    case 'boolean':
-      propValue = prop === ''
-      break
-    default:
-      propValue = prop
-      break
+export function imageLoader(
+  src: string,
+  cors?: boolean
+): Promise<HTMLImageElement> {
+  const image = new Image()
+  if (cors) {
+    image.crossOrigin = 'anonymous'
   }
-  return propValue
+  return new Promise(resolve => {
+    image.onload = () => resolve(image)
+    image.onerror = () => {
+      console.warn(`[vue-poster]: Failed to load image at ${src}`)
+    }
+    image.src = src
+  })
 }

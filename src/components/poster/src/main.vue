@@ -5,24 +5,26 @@
     :src="imageDate"
     :class="posterClass"
   >
-
   <slot v-else name="loading">
     <Loading/>
   </slot>
-
-  <slot name="default"></slot>
+  <slot></slot>
 </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import Loading from '../../poster-loading/'
+import Loading from '../../poster-loading/index'
 
-import { createCanvas, canvasToDataURL, canvas, CanvasContext } from '../../../helper/canvas'
+import {
+  canvas,
+  initCanvas,
+  canvasToDataURL,
+  ElementHandler,
+  Handlers
+} from '../../../canvas'
+
 import { MOUNTED_EVENT } from '../../../helper/emitter'
-import { ElementHandler } from '../../../helper/type'
-
-type Handlers = Array<(canvas: CanvasContext) => ElementHandler>
 
 export default Vue.extend({
   name: 'poster',
@@ -62,7 +64,7 @@ export default Vue.extend({
     })
   },
   mounted() {
-    createCanvas({
+    initCanvas({
       width: this.width,
       height: this.height,
       ratio: this.ratio,

@@ -7,9 +7,6 @@ export default Vue.extend({
     color: String,
     font: String,
     nowrap: Boolean
-  },
-  render(h) {
-    return h()
   }
 })
 </script>

@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import { ElementHandler } from '../../../helper/type';
+import { ElementHandler } from '../../../canvas';
 declare const _default: import("vue/types/vue").ExtendedVue<Vue, {
     elements: ElementHandler<{}>[];
     imageDate: string;

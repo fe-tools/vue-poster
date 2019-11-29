@@ -6,8 +6,8 @@ import { terser } from 'rollup-plugin-terser'
 
 export default {
   input: {
-    index: 'src/index.ts',
-    poster: 'src/components/poster/index.ts',
+    'index': 'src/index.ts',
+    'poster': 'src/components/poster/index.ts',
     'poster-loading': 'src/components/poster-loading/index.ts',
     'poster-image': 'src/components/poster-image/index.ts',
     'poster-text': 'src/components/poster-text/index.ts',

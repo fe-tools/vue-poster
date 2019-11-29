@@ -1,46 +1,59 @@
 import { VNode } from 'vue'
-import { ElementHandler } from '../../../helper/type'
-import { splitText } from '../../../helper/text'
+import { ElementHandler } from '../../../canvas'
+import { splitText } from './split'
 
 export type TextConfig = {
-  width?: number
-  height?: number
-  offsetX?: number
-  offsetY?: number
-
-  color?: string
-  font?: string
-  lineHeight?: number
-  vnodes: VNode[]
-
-  border?: boolean
+  width: number
+  height: number
+  offsetX: number
+  offsetY: number
+  color: string
+  font: string
+  lineHeight: number
+  border: boolean
+  vnodes?: VNode[]
 }
 
-const FONT_SIZE_RULE = /\b([\d]+)[a-zA-Z]+\b/
+const getFontSize = (style: string) => {
+  const fontSize = style.match(/\b([\d]+)[a-zA-Z]+\b/)?.[1]
+  if (!fontSize) {
+    throw Error(
+      `[vue-poster]: Font attribute '${style}' must include font size`
+    )
+  }
+  return Number(fontSize)
+}
 
-const drawText: ElementHandler<TextConfig> = (config, { context, element, ratio }) => {
+const drawText: ElementHandler<TextConfig> = (
+  config,
+  { context, element, ratio }
+) => {
   const {
     offsetX = 0,
     offsetY = 0,
     width = element.width / 2,
-    height = (element.height - (offsetY * ratio)) / 2,
-    vnodes,
+    height = (element.height - offsetY * ratio) / 2,
     color = 'black',
     font = 'normal 400 14px sans-serif',
     lineHeight,
-    border = false
+    border = false,
+    vnodes
   } = config
+
+  if (!vnodes) {
+    return new Promise(resolve => resolve())
+  }
 
   const textNodes = splitText(config, vnodes)
 
   let firstLineflag = true
   let maxHeight = 0
-  let textRenderNodes = []
+  const textRenderNodes = []
 
-  const contextLineHeight = Number(font.match(FONT_SIZE_RULE)![1])
-  const currentlineHeight = lineHeight || contextLineHeight
+  const contextLineHeight = getFontSize(font)
+  const currentlineHeight = lineHeight ?? contextLineHeight
 
-  let cacheOffset = {
+  const cacheOffset = {
     x: offsetX,
     y: offsetY
   }
@@ -49,20 +62,14 @@ const drawText: ElementHandler<TextConfig> = (config, { context, element, ratio 
     context.lineWidth = 1
     context.strokeStyle = 'white'
     context.strokeRect(offsetX, offsetY, width, height)
-  } 
+  }
 
   for (let i = 0; i < textNodes.length; i++) {
     // calculate maximum font height of the first line
     if (firstLineflag) {
-      let fontSizeArr = 0
-
-      try {
-        fontSizeArr = Number(textNodes[i].font!.match(FONT_SIZE_RULE)![1])
-      } catch(err) {
-        fontSizeArr = contextLineHeight
-      }
-
-      maxHeight = Math.max(fontSizeArr, maxHeight)
+      const font = textNodes[i].font
+      const fontSize = font ? getFontSize(font) : contextLineHeight
+      maxHeight = Math.max(fontSize, maxHeight)
     }
 
     // break line
@@ -96,7 +103,7 @@ const drawText: ElementHandler<TextConfig> = (config, { context, element, ratio 
     context.fillText(node.character, node.x, node.y + maxHeight)
   })
 
-  return new Promise((resolve) => resolve())
+  return new Promise(resolve => resolve())
 }
 
 export default drawText

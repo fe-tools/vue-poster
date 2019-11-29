@@ -1,8 +1,10 @@
-interface CanvasProperty {
-  width?: number
-  height?: number
-  ratio?: number
-  backgroundColor?: string
+const canvasElement = document.createElement('canvas')
+
+interface CanvasConfig {
+  width: number
+  height: number
+  ratio: number
+  backgroundColor: string
 }
 
 export interface CanvasContext {
@@ -11,10 +13,12 @@ export interface CanvasContext {
   ratio: number
 }
 
-type CreateCanvas = (config: CanvasProperty) => void
-type CanvasToDataURL = (type?: string, quality?: number) => string
+export type ElementHandler<T = {}> = (
+  config: T,
+  canvas: CanvasContext
+) => Promise<void>
 
-const canvasElement = document.createElement('canvas')
+export type Handlers = Array<(canvas: CanvasContext) => ElementHandler>
 
 export const canvas: CanvasContext = {
   element: canvasElement,
@@ -23,22 +27,21 @@ export const canvas: CanvasContext = {
   ratio: 1
 }
 
-export const createCanvas: CreateCanvas = function(configs) {
+export function initCanvas(configs: CanvasConfig) {
   const { width = 300, height = 300, ratio = 1, backgroundColor } = configs
-
-  canvas.ratio = ratio
 
   canvas.element.width = width * ratio
   canvas.element.height = height * ratio
   canvas.context.scale(ratio, ratio)
-
+  canvas.ratio = ratio
+  // draw poster background color
   if (typeof backgroundColor === 'string') {
     canvas.context.fillStyle = backgroundColor
     canvas.context.fillRect(0, 0, width * ratio, height * ratio)
   }
 }
 
-export const canvasToDataURL: CanvasToDataURL = function(type, quality) {
+export function canvasToDataURL(type: string, quality: number) {
   return canvasElement.toDataURL(
     type === 'png' ? 'image/png' : 'image/jpeg',
     quality || 1

@@ -1,10 +1,10 @@
-import { ElementHandler } from '../../../helper/type';
+import { ElementHandler } from '../../../canvas';
 declare type QRCodeConfig = {
-    width?: number | 'auto';
-    height?: number | 'auto';
-    offsetX?: number;
-    offsetY?: number;
-    margin?: number;
+    width: number | 'auto';
+    height: number | 'auto';
+    offsetX: number;
+    offsetY: number;
+    margin: number;
     text: string;
 };
 declare const drawQRCode: ElementHandler<QRCodeConfig>;

@@ -1,18 +1,17 @@
-import { ElementHandler } from '../../../helper/type'
-import { imageLoader } from '../../../helper/image'
+import { ElementHandler } from '../../../canvas'
+import { imageLoader } from '../../../helper/utils'
 import qrcode from 'qrcode-generator'
 
 type QRCodeConfig = {
-  width?: number | 'auto'
-  height?: number | 'auto'
-  offsetX?: number
-  offsetY?: number
-  margin?: number
-
+  width: number | 'auto'
+  height: number | 'auto'
+  offsetX: number
+  offsetY: number
+  margin: number
   text: string
 }
 
-const drawQRCode:ElementHandler<QRCodeConfig> = async (config, canvas) => {
+const drawQRCode: ElementHandler<QRCodeConfig> = async (config, canvas) => {
   const {
     width = 'auto',
     height = 'auto',
@@ -30,13 +29,13 @@ const drawQRCode:ElementHandler<QRCodeConfig> = async (config, canvas) => {
 
   const QRCodeBase64 = qr.createDataURL(
     cellSize * canvas.ratio,
-    margin === undefined? cellSize * canvas.ratio * 2: margin
+    margin ? cellSize * canvas.ratio * 2 : margin
   )
 
   const image = await imageLoader(QRCodeBase64, false)
 
-  const currentWidth = width === 'auto'? (40 * canvas.ratio): width
-  const currentHeight = height === 'auto'? (40 * canvas.ratio): height
+  const currentWidth = width === 'auto' ? 40 * canvas.ratio : width
+  const currentHeight = height === 'auto' ? 40 * canvas.ratio : height
 
   canvas.context.drawImage(image, offsetX, offsetY, currentWidth, currentHeight)
 

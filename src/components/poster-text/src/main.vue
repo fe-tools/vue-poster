@@ -24,7 +24,7 @@ export default Vue.extend({
       color: this.color,
       font: this.font,
       lineHeight: this.lineHeight,
-      vnodes: this.$slots.default!,
+      vnodes: this.$slots.default,
       border: this.border
     }, canvas))
   },

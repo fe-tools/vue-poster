@@ -6,8 +6,8 @@ import drawImage from './image'
 export default Vue.extend({
   name: 'poster-image',
   props: {
-    width: Number,
-    height: Number,
+    width: [Number,String],
+    height: [Number,String],
     offsetY: Number,
     offsetX: Number,
     src: String,
@@ -18,8 +18,8 @@ export default Vue.extend({
   },
   mounted() {
     dispatch(this, canvas => drawImage({
-      width: this.width,
-      height: this.height,
+      width: this.width as number | 'auto',
+      height: this.height as number | 'auto',
       offsetX: this.offsetX,
       offsetY: this.offsetY,
       src: this.src,

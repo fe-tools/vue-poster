@@ -1,11 +1,11 @@
-import { ElementHandler } from '../../../helper/type';
+import { ElementHandler } from '../../../canvas';
 declare type ImageConfig = {
-    width?: number | 'auto';
-    height?: number | 'auto';
-    offsetX?: number;
-    offsetY?: number;
+    width: number | 'auto';
+    height: number | 'auto';
+    offsetX: number;
+    offsetY: number;
     src: string;
-    cors?: boolean;
+    cors: boolean;
 };
 declare const drawImage: ElementHandler<ImageConfig>;
 export default drawImage;

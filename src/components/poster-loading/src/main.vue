@@ -5,7 +5,8 @@
   >
     <div 
       class="v-poster-loading__icon"
-      :style="{ color: color }">
+      :style="{ color: color }"
+    >
     </div>
   </div>
 </template>
