@@ -84,18 +84,30 @@ export default {
 | offsetY | Number | `0` | 垂直偏移像素 |
 | margin | Number | 「点」尺寸的 `2` 倍 | 二维码白边宽度 |
 
-### PosterTest
+### PosterText
 
 | Attribute | Type | Default | Description |
 | -- | -- | -- | -- |
+| width | Number | `offsetX` 到海报 `right` 的距离 | 宽度 |
+| height | Number | `offsetY` 到海报 `bottom` 的距离  | 高度 |
 | offsetX | Number | `0` | 文本偏移像素 |
 | offsetY | Number | `0` | 文本偏移像素 |
 | color | String | `black` | 文字颜色 |
 | font | String | `normal 400 14px sans-serif` | 文字样式 |
+| lineHeight | Number | `14` | 行高 |
+| border | Boolean | `false` | 是否显示边框 |
 
 | Slot | Description |
 | -- | -- |
 | default | 默认插槽，放置需要渲染的文本 |
+
+#### PosterTextInline
+
+| Attribute | Type | Default | Description |
+| -- | -- | -- | -- |
+| color | String | extends `PosterText` color | 文字颜色 |
+| font | String | extends `PosterText` font | 文字样式 |
+| nowrap | Boolean | `false` | 是否不允许换行 |
 
 ### PosterLoading
 
