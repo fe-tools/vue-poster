@@ -1,10 +1,11 @@
 <script lang="ts">
 import Vue from 'vue'
-import { dispatch } from '../../../helper/emitter'
+import { CanvasContext } from '../../../canvas'
 import drawText from './text'
 
 export default Vue.extend({
   name: 'poster-text',
+  inject: [ 'posterVM' ],
   props: {
     width: Number,
     height: Number,
@@ -16,17 +17,20 @@ export default Vue.extend({
     border: Boolean
   },
   mounted() {
-    dispatch(this, canvas => drawText({
-      width: this.width,
-      height: this.height,
-      offsetX: this.offsetX,
-      offsetY: this.offsetY,
-      color: this.color,
-      font: this.font,
-      lineHeight: this.lineHeight,
-      vnodes: this.$slots.default,
-      border: this.border
-    }, canvas))
+    this.posterVM.$emit(
+      'on-element-mounted',
+      (canvas: CanvasContext) => drawText({
+        width: this.width,
+        height: this.height,
+        offsetX: this.offsetX,
+        offsetY: this.offsetY,
+        color: this.color,
+        font: this.font,
+        lineHeight: this.lineHeight,
+        vnodes: this.$slots.default,
+        border: this.border
+      }, canvas)
+    )
   },
   render(h) {
     return h()

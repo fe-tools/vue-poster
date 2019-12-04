@@ -24,10 +24,13 @@ import {
   Handlers
 } from '../../../canvas'
 
-import { MOUNTED_EVENT } from '../../../helper/emitter'
-
 export default Vue.extend({
   name: 'poster',
+  provide() {
+    return {
+      posterVM: this
+    }
+  },
   props: {
     posterClass: String,
     width: Number,
@@ -59,9 +62,12 @@ export default Vue.extend({
     }
   },
   created() {
-    this.$on(MOUNTED_EVENT, (handler: ElementHandler) => {
-      this.elements.push(handler)
-    })
+    this.$on(
+      'on-element-mounted',
+      (handler: ElementHandler) => {
+        this.elements.push(handler)
+      }
+    )
   },
   mounted() {
     initCanvas({

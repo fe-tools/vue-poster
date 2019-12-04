@@ -1,10 +1,11 @@
 <script lang="ts">
 import Vue from 'vue'
-import { dispatch } from '../../../helper/emitter'
+import { CanvasContext } from '../../../canvas'
 import drawImage from './image'
 
 export default Vue.extend({
   name: 'poster-image',
+  inject: [ 'posterVM' ],
   props: {
     width: [Number,String],
     height: [Number,String],
@@ -17,14 +18,17 @@ export default Vue.extend({
     }
   },
   mounted() {
-    dispatch(this, canvas => drawImage({
-      width: this.width as number | 'auto',
-      height: this.height as number | 'auto',
-      offsetX: this.offsetX,
-      offsetY: this.offsetY,
-      src: this.src,
-      cors: this.cors
-    }, canvas))
+    this.posterVM.$emit(
+      'on-element-mounted',
+      (canvas: CanvasContext) => drawImage({
+        width: this.width as number | 'auto',
+        height: this.height as number | 'auto',
+        offsetX: this.offsetX,
+        offsetY: this.offsetY,
+        src: this.src,
+        cors: this.cors
+      }, canvas)
+    )
   },
   render(h) {
     return h()

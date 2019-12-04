@@ -5,3 +5,10 @@ declare global {
     Vue: VueConstructor
   }
 }
+
+// vue provide & inject
+declare module 'vue/types/vue' {
+  interface Vue {
+    posterVM: Vue
+  }
+}
