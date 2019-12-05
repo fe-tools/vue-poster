@@ -1,4 +1,4 @@
-import { ElementHandler } from '../../../canvas';
+import { ElementHandler } from '../../canvas';
 declare type ImageConfig = {
     width: number | 'auto';
     height: number | 'auto';

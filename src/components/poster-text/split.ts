@@ -1,7 +1,7 @@
 import { VNode } from 'vue'
-import { canvas } from '../../../canvas'
+import { canvas } from '../../canvas'
 import { TextConfig } from './text'
-import { isVueComponentVNode, formateObject } from '../../../utils'
+import { isVueComponentVNode, formateObject } from '../../utils'
 
 interface TextInlineConfig {
   color?: string

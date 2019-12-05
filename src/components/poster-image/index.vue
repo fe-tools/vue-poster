@@ -1,6 +1,6 @@
 <script lang="ts">
 import Vue from 'vue'
-import { CanvasContext } from '../../../canvas'
+import { CanvasContext } from '../../canvas'
 import drawImage from './image'
 
 export default Vue.extend({

@@ -14,7 +14,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import Loading from '../../poster-loading/index'
+import Loading from '../poster-loading/index.vue'
 
 import {
   canvas,
@@ -22,7 +22,7 @@ import {
   canvasToDataURL,
   ElementHandler,
   Handlers
-} from '../../../canvas'
+} from '../../canvas'
 
 export default Vue.extend({
   name: 'poster',

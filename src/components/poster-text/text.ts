@@ -1,5 +1,5 @@
 import { VNode } from 'vue'
-import { ElementHandler } from '../../../canvas'
+import { ElementHandler } from '../../canvas'
 import { splitText } from './split'
 
 export type TextConfig = {

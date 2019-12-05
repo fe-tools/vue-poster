@@ -1,5 +1,5 @@
-import { ElementHandler } from '../../../canvas'
-import { imageLoader } from '../../../utils'
+import { ElementHandler } from '../../canvas'
+import { imageLoader } from '../../utils'
 import qrcode from 'qrcode-generator'
 
 type QRCodeConfig = {

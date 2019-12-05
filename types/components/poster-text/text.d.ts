@@ -1,5 +1,5 @@
 import { VNode } from 'vue';
-import { ElementHandler } from '../../../canvas';
+import { ElementHandler } from '../../canvas';
 export declare type TextConfig = {
     width: number;
     height: number;
