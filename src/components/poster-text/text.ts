@@ -1,8 +1,13 @@
 import { VNode } from 'vue'
 import { ElementHandler } from '../../canvas'
-import { splitText } from './split'
+import { getFontSize, calcCharacterSize } from './utils'
+import { CanvasContext } from '../../canvas'
+import { getVNodeComponentName } from '../../utils'
 
-export type TextConfig = {
+import { handleInlineText } from './inline/inline'
+import { handleDefaultText } from './default/index'
+
+type TextConfig = {
   width: number
   height: number
   offsetX: number
@@ -14,13 +19,65 @@ export type TextConfig = {
   vnodes?: VNode[]
 }
 
-const getFontSize = (style: string) => {
-  const fontSize = style.match(/\b([\d]+)[a-zA-Z]+\b/)?.[1]
-  if (!fontSize) {
-    /* prettier-ignore */
-    throw Error(`[vue-poster]: Font attribute '${style}' must include font size`)
+type Draw = (
+  characters: string[],
+  props?: {
+    font?: string
+    color?: string
   }
-  return Number(fontSize)
+) => void
+
+type TextFragment = (context: {
+  config: Pick<TextConfig, 'width' | 'height' | 'color' | 'font' | 'lineHeight'>
+  canvas: CanvasContext
+  state: {
+    offsetX: number
+    offsetY: number
+    firstLineMaxFontSize: number
+    lineNumber: number
+  }
+}) => Draw
+
+export type TextPluginHandler = (vnode: VNode, next: Draw) => void
+
+const drawTextFragment: TextFragment = ({ config, canvas, state }) => {
+  return (characters, props) => {
+    for (let i = 0; i < characters.length; i++) {
+      if (!characters[i]) {
+        continue
+      }
+
+      const size = calcCharacterSize(
+        canvas.context,
+        config.font,
+        characters[i],
+        props?.font
+      )
+
+      // calculate maximum font height of the first line
+      if (state.lineNumber === 1) {
+        const fontSize = getFontSize(props?.font || config.font)
+        state.firstLineMaxFontSize = Math.max(
+          fontSize,
+          state.firstLineMaxFontSize
+        )
+      }
+
+      // break line
+      if (state.offsetX + size > config.width) {
+        state.offsetX = 0
+        state.offsetY += config.lineHeight
+        state.lineNumber++
+      }
+
+      canvas.context.textBaseline = 'bottom'
+      canvas.context.fillStyle = props?.color || config.color
+      canvas.context.font = props?.font || config.font
+      canvas.context.fillText(characters[i], state.offsetX, state.offsetY)
+
+      state.offsetX += size
+    }
+  }
 }
 
 /* prettier-ignore */
@@ -28,8 +85,8 @@ const drawText: ElementHandler<TextConfig> = (config, { context, element, ratio 
   const {
     offsetX = 0,
     offsetY = 0,
-    width = element.width / 2,
-    height = (element.height - offsetY * ratio) / 2,
+    width = element.width / ratio,
+    height = element.height / ratio - offsetY,
     color = 'black',
     font = 'normal 400 14px sans-serif',
     lineHeight,
@@ -41,64 +98,54 @@ const drawText: ElementHandler<TextConfig> = (config, { context, element, ratio 
     return new Promise(resolve => resolve())
   }
 
-  const textNodes = splitText(config, vnodes)
-
-  let firstLineflag = true
-  let maxHeight = 0
-  const textRenderNodes = []
-
-  const contextLineHeight = getFontSize(font)
-  const currentlineHeight = lineHeight ?? contextLineHeight
-
-  const cacheOffset = {
-    x: offsetX,
-    y: offsetY
-  }
-
   if (border) {
     context.lineWidth = 1
     context.strokeStyle = 'white'
     context.strokeRect(offsetX, offsetY, width, height)
   }
 
-  for (let i = 0; i < textNodes.length; i++) {
-    // calculate maximum font height of the first line
-    if (firstLineflag) {
-      const font = textNodes[i].font
-      const fontSize = font ? getFontSize(font) : contextLineHeight
-      maxHeight = Math.max(fontSize, maxHeight)
+  // create a text-canvas
+  const textCanvas = document.createElement('canvas')
+  /* eslint-disable @typescript-eslint/no-non-null-assertion */
+  const textContext = textCanvas.getContext('2d')!
+
+  textCanvas.width = width * ratio
+  textCanvas.height = element.height + height * ratio
+  textContext.scale(ratio, ratio)
+
+  const textCxt = {
+    config: { width, height, color, font, lineHeight },
+    canvas: { context: textContext, element: textCanvas, ratio },
+    state: {
+      offsetX: 0,
+      offsetY: element.height / ratio,
+      lineNumber: 1,
+      firstLineMaxFontSize: 0
     }
-
-    // break line
-    if (cacheOffset.x + textNodes[i].size > width) {
-      cacheOffset.x = offsetX
-      cacheOffset.y += currentlineHeight
-      firstLineflag = false
-    }
-
-    // stop render
-    if (cacheOffset.y - offsetY + currentlineHeight > height) {
-      break
-    }
-
-    textRenderNodes.push({
-      color: textNodes[i].color,
-      font: textNodes[i].font,
-      character: textNodes[i].character,
-      x: cacheOffset.x,
-      y: cacheOffset.y
-    })
-
-    cacheOffset.x += textNodes[i].size
   }
 
-  // render character
-  textRenderNodes.forEach(node => {
-    context.fillStyle = node.color || color
-    context.font = node.font || font
-    context.textBaseline = 'bottom'
-    context.fillText(node.character, node.x, node.y + maxHeight)
+  // handle text plugin
+  const next = drawTextFragment(textCxt)
+  vnodes.forEach(vnode => {
+    switch (getVNodeComponentName(vnode)) {
+      case 'poster-text-inline':
+        handleInlineText(vnode, next)
+        break
+      default:
+        handleDefaultText(vnode, next)
+    }
   })
+
+  // draw text-canvas on poster
+  const fl = textCxt.state.firstLineMaxFontSize
+  const sy = element.height / ratio - fl
+  const ln = Math.floor((height - fl) / lineHeight)
+  const sh = ln * lineHeight + fl
+  context.drawImage(
+    textCanvas,
+    0, sy * ratio, width * ratio, sh * ratio,
+    offsetX, offsetY, width, sh
+  )
 
   return new Promise(resolve => resolve())
 }

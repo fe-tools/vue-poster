@@ -1,6 +1,6 @@
 import { VNode } from 'vue';
 import { ElementHandler } from '../../canvas';
-export declare type TextConfig = {
+declare type TextConfig = {
     width: number;
     height: number;
     offsetX: number;
@@ -11,5 +11,10 @@ export declare type TextConfig = {
     border: boolean;
     vnodes?: VNode[];
 };
+declare type Draw = (characters: string[], props?: {
+    font?: string;
+    color?: string;
+}) => void;
+export declare type TextPluginHandler = (vnode: VNode, next: Draw) => void;
 declare const drawText: ElementHandler<TextConfig>;
 export default drawText;

@@ -1,15 +1,11 @@
 import Vue, { VNode } from 'vue'
 
-export const getVueComponentName = (vnode: Vue) => {
-  return vnode.$options.name
+export const getVueComponentName = (vm: Vue) => {
+  return vm.$options.name
 }
 
-export const isVueComponentVNode = (vnode: VNode) => {
-  return vnode.componentOptions?.tag !== undefined
-}
-
-export const formateObject = (obj = {}) => {
-  return JSON.parse(JSON.stringify(obj))
+export const getVNodeComponentName = (vnode: VNode) => {
+  return vnode.componentOptions?.Ctor?.options?.name
 }
 
 export function imageLoader(
