@@ -7,8 +7,8 @@ export default Vue.extend({
   name: 'poster-qrcode',
   inject: [ 'posterVM' ],
   props: {
-    width: [ Number, String ],
-    height: [ Number, String ],
+    width: Number,
+    height: Number,
     offsetY: Number,
     offsetX: Number,
     margin: Number,
@@ -18,8 +18,8 @@ export default Vue.extend({
     this.posterVM.$emit(
       'on-element-mounted',
       (canvas: CanvasContext) => drawQRCode({
-        width: this.width as number | 'auto',
-        height: this.height as number | 'auto',
+        width: this.width,
+        height: this.height,
         offsetX: this.offsetX,
         offsetY: this.offsetY,
         margin: this.margin,

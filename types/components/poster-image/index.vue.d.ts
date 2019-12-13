@@ -1,7 +1,7 @@
 import Vue from 'vue';
 declare const _default: import("vue/types/vue").ExtendedVue<Vue, unknown, unknown, unknown, {
-    width: string | number;
-    height: string | number;
+    width: number;
+    height: number;
     offsetY: number;
     offsetX: number;
     src: string;
