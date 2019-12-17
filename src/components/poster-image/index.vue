@@ -1,6 +1,6 @@
 <script lang="ts">
 import Vue from 'vue'
-import { CanvasContext } from '../../canvas'
+import { InjectCxtToHandler } from '../../canvas'
 import drawImage from './image'
 
 export default Vue.extend({
@@ -18,17 +18,16 @@ export default Vue.extend({
     }
   },
   mounted() {
-    this.posterVM.$emit(
-      'on-element-mounted',
-      (canvas: CanvasContext) => drawImage({
-        width: this.width,
-        height: this.height,
-        offsetX: this.offsetX,
-        offsetY: this.offsetY,
-        src: this.src,
-        cors: this.cors
-      }, canvas)
-    )
+    const handler: InjectCxtToHandler = canvas => drawImage({
+      width: this.width,
+      height: this.height,
+      offsetX: this.offsetX,
+      offsetY: this.offsetY,
+      src: this.src,
+      cors: this.cors
+    }, canvas)
+
+    this.posterVM.$emit('on-element-mounted', handler)
   },
   render(h) {
     return h()

@@ -1,6 +1,6 @@
 <script lang="ts">
 import Vue from 'vue'
-import { CanvasContext } from '../../canvas'
+import { InjectCxtToHandler } from '../../canvas'
 import drawQRCode from './qrcode'
 
 export default Vue.extend({
@@ -15,17 +15,16 @@ export default Vue.extend({
     text: String
   },
   mounted() {
-    this.posterVM.$emit(
-      'on-element-mounted',
-      (canvas: CanvasContext) => drawQRCode({
-        width: this.width,
-        height: this.height,
-        offsetX: this.offsetX,
-        offsetY: this.offsetY,
-        margin: this.margin,
-        text: this.text
-      }, canvas)
-    )
+    const handler: InjectCxtToHandler = canvas => drawQRCode({
+      width: this.width,
+      height: this.height,
+      offsetX: this.offsetX,
+      offsetY: this.offsetY,
+      margin: this.margin,
+      text: this.text
+    }, canvas)
+
+    this.posterVM.$emit('on-element-mounted', handler)
   },
   render(h) {
     return h()

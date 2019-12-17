@@ -10,7 +10,7 @@ export interface CanvasContext {
     ratio: number;
 }
 export declare type ElementHandler<T = {}> = (config: T, canvas: CanvasContext) => Promise<void>;
-export declare type Handlers = Array<(canvas: CanvasContext) => ElementHandler>;
+export declare type InjectCxtToHandler = (canvas: CanvasContext) => ReturnType<ElementHandler>;
 export declare const canvas: CanvasContext;
 export declare function initCanvas(configs: CanvasConfig): void;
 export declare function canvasToDataURL(type: string, quality: number): string;

@@ -4,6 +4,7 @@ declare const _default: import("vue/types/vue").ExtendedVue<Vue, {
     elements: ElementHandler<{}>[];
     imageDate: string;
 }, {
+    addElementToQueue(handler: ElementHandler<{}>): void;
     drawPoster(): void;
 }, unknown, {
     posterClass: string;

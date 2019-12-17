@@ -21,7 +21,7 @@ import {
   initCanvas,
   canvasToDataURL,
   ElementHandler,
-  Handlers
+  InjectCxtToHandler
 } from '../../canvas'
 
 export default Vue.extend({
@@ -48,13 +48,16 @@ export default Vue.extend({
   },
   components: { Loading },
   methods: {
+    addElementToQueue(handler: ElementHandler) {
+      this.elements.push(handler)
+    },
     drawPoster() {
       this.imageDate = canvasToDataURL(this.type, this.quality)
       this.$emit('on-render', this.imageDate)
     }
   },
   watch: {
-    async elements(handlers: Handlers) {
+    async elements(handlers: InjectCxtToHandler[]) {
       for (let i = 0; i < handlers.length; i++) {
         await handlers[i](canvas)
       }
@@ -62,12 +65,7 @@ export default Vue.extend({
     }
   },
   created() {
-    this.$on(
-      'on-element-mounted',
-      (handler: ElementHandler) => {
-        this.elements.push(handler)
-      }
-    )
+    this.$on('on-element-mounted', this.addElementToQueue)
   },
   mounted() {
     initCanvas({

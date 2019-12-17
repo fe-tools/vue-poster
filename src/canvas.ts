@@ -18,7 +18,9 @@ export type ElementHandler<T = {}> = (
   canvas: CanvasContext
 ) => Promise<void>
 
-export type Handlers = Array<(canvas: CanvasContext) => ElementHandler>
+export type InjectCxtToHandler = (
+  canvas: CanvasContext
+) => ReturnType<ElementHandler>
 
 export const canvas: CanvasContext = {
   element: canvasElement,
