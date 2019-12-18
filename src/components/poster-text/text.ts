@@ -15,6 +15,7 @@ type TextConfig = {
   color: string
   font: string
   lineHeight: number
+  textBaseline: CanvasTextBaseline
   border: boolean
   vnodes?: VNode[]
 }
@@ -28,7 +29,8 @@ type Draw = (
 ) => void
 
 type TextFragment = (context: {
-  config: Pick<TextConfig, 'width' | 'height' | 'color' | 'font' | 'lineHeight'>
+  /* prettier-ignore */
+  config: Pick<TextConfig, 'width' | 'height' | 'color' | 'font' | 'lineHeight' | 'textBaseline'>
   canvas: CanvasContext
   state: {
     offsetX: number
@@ -70,6 +72,7 @@ const drawTextFragment: TextFragment = ({ config, canvas, state }) => {
         state.lineNumber++
       }
 
+      canvas.context.textBaseline = config.textBaseline
       canvas.context.fillStyle = props?.color || config.color
       canvas.context.font = props?.font || config.font
       canvas.context.fillText(characters[i], state.offsetX, state.offsetY)
@@ -88,6 +91,7 @@ const drawText: ElementHandler<TextConfig> = (config, { context, element, ratio 
     height = element.height / ratio - offsetY,
     color = 'black',
     font = 'normal 400 14px sans-serif',
+    textBaseline = 'bottom',
     lineHeight,
     border = false,
     vnodes
@@ -113,7 +117,7 @@ const drawText: ElementHandler<TextConfig> = (config, { context, element, ratio 
   textContext.scale(ratio, ratio)
 
   const textCxt = {
-    config: { width, height, color, font, lineHeight },
+    config: { width, height, color, font, lineHeight, textBaseline },
     canvas: { context: textContext, element: textCanvas, ratio },
     state: {
       offsetX: 0,

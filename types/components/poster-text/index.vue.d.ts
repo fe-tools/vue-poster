@@ -7,6 +7,7 @@ declare const _default: import("vue/types/vue").ExtendedVue<Vue, unknown, unknow
     color: string;
     font: string;
     lineHeight: number;
+    textBaseline: string;
     border: boolean;
 }>;
 export default _default;

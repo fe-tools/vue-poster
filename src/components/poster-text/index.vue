@@ -14,6 +14,7 @@ export default Vue.extend({
     color: String,
     font: String,
     lineHeight: Number,
+    textBaseline: String,
     border: Boolean
   },
   mounted() {
@@ -25,6 +26,7 @@ export default Vue.extend({
       color: this.color,
       font: this.font,
       lineHeight: this.lineHeight,
+      textBaseline: this.textBaseline as CanvasTextBaseline,
       vnodes: this.$slots.default,
       border: this.border
     }, canvas)
