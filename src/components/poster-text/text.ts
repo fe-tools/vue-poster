@@ -70,7 +70,6 @@ const drawTextFragment: TextFragment = ({ config, canvas, state }) => {
         state.lineNumber++
       }
 
-      canvas.context.textBaseline = 'bottom'
       canvas.context.fillStyle = props?.color || config.color
       canvas.context.font = props?.font || config.font
       canvas.context.fillText(characters[i], state.offsetX, state.offsetY)
