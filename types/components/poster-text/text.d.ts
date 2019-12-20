@@ -8,6 +8,7 @@ declare type TextConfig = {
     color: string;
     font: string;
     lineHeight: number;
+    textOffsetY: number;
     textBaseline: CanvasTextBaseline;
     border: boolean;
     vnodes?: VNode[];

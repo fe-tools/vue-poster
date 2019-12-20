@@ -15,6 +15,7 @@ type TextConfig = {
   color: string
   font: string
   lineHeight: number
+  textOffsetY: number
   textBaseline: CanvasTextBaseline
   border: boolean
   vnodes?: VNode[]
@@ -91,7 +92,8 @@ const drawText: ElementHandler<TextConfig> = (config, { context, element, ratio 
     height = element.height / ratio - offsetY,
     color = 'black',
     font = 'normal 400 14px sans-serif',
-    textBaseline = 'bottom',
+    textOffsetY = 0,
+    textBaseline = 'alphabetic',
     lineHeight,
     border = false,
     vnodes
@@ -141,7 +143,7 @@ const drawText: ElementHandler<TextConfig> = (config, { context, element, ratio 
 
   // draw text-canvas on poster
   const fl = textCxt.state.firstLineMaxFontSize
-  const sy = element.height / ratio - fl
+  const sy = element.height / ratio - fl - (textOffsetY * ratio)
   const ln = Math.floor((height - fl) / lineHeight)
   const sh = ln * lineHeight + fl
   context.drawImage(
