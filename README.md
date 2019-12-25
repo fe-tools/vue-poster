@@ -95,6 +95,8 @@ export default {
 | color | String | `black` | 文字颜色 |
 | font | String | `normal 400 14px sans-serif` | 文字样式 |
 | lineHeight | Number | `14` | 行高 |
+| textBaseline | String | `alphabetic` | 基线对齐方式 |
+| textOffsetY | Number | `0` | 文本垂直偏移量 |
 | border | Boolean | `false` | 是否显示边框 |
 
 | Slot | Description |
