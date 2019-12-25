@@ -8,6 +8,18 @@ export const getVNodeComponentName = (vnode: VNode) => {
   return vnode.componentOptions?.Ctor?.options?.name
 }
 
+export const getVNodeBooleanProps = <T extends object>(
+  propsData: T,
+  propName: keyof T
+) => {
+  let value = false
+  if (propsData.hasOwnProperty(propName)) {
+    const prop = propsData[propName]
+    value = typeof prop === 'boolean' ? prop : true
+  }
+  return value
+}
+
 export function imageLoader(
   src: string,
   cors?: boolean
