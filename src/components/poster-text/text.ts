@@ -94,10 +94,11 @@ const drawText: ElementHandler<TextConfig> = (config, { context, element, ratio 
     font = 'normal 400 14px sans-serif',
     textOffsetY = 0,
     textBaseline = 'alphabetic',
-    lineHeight,
     border = false,
     vnodes
   } = config
+
+  const lineHeight = config.lineHeight ?? getFontSize(font)
 
   if (!vnodes) {
     return new Promise(resolve => resolve())
