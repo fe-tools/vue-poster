@@ -11,6 +11,10 @@ export default Vue.extend({
     height: Number,
     offsetY: Number,
     offsetX: Number,
+    round: {
+      type: Boolean,
+      default: false
+    },
     src: String,
     cors: {
       type: Boolean,
@@ -23,6 +27,7 @@ export default Vue.extend({
       height: this.height,
       offsetX: this.offsetX,
       offsetY: this.offsetY,
+      round: this.round,
       src: this.src,
       cors: this.cors
     }, canvas)

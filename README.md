@@ -71,6 +71,7 @@ export default {
 | height | Number | 原图高度 | 高度 |
 | offsetX | Number | `0` | 水平偏移像素 |
 | offsetY | Number | `0` | 垂直偏移像素 |
+| round | Boolean | `false` | 剪切成圆形 |
 | cors | Boolean | `false` | 是否允许 CORS |
 
 ### PosterQRCode

@@ -4,6 +4,7 @@ declare type ImageConfig = {
     height: number;
     offsetX: number;
     offsetY: number;
+    round: boolean;
     src: string;
     cors: boolean;
 };

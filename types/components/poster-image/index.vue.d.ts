@@ -4,6 +4,7 @@ declare const _default: import("vue/types/vue").ExtendedVue<Vue, unknown, unknow
     height: number;
     offsetY: number;
     offsetX: number;
+    round: boolean;
     src: string;
     cors: boolean;
 }>;
