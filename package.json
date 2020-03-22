@@ -1,6 +1,6 @@
 {
   "name": "@fe-tools/vue-poster",
-  "version": "0.3.4",
+  "version": "0.4.0",
   "description": "vue component, easy create canvas poster",
   "keywords": [
     "vue",
