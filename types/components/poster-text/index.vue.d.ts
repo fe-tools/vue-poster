@@ -8,6 +8,7 @@ declare const _default: import("vue/types/vue").ExtendedVue<Vue, unknown, unknow
     font: string;
     lineHeight: number;
     textOffsetY: number;
+    textAlign: string;
     textBaseline: string;
     border: boolean;
 }>;

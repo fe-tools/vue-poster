@@ -16,6 +16,7 @@ type TextConfig = {
   font: string
   lineHeight: number
   textOffsetY: number
+  textAlign: CanvasTextAlign
   textBaseline: CanvasTextBaseline
   border: boolean
   vnodes?: VNode[]
@@ -31,7 +32,7 @@ type Draw = (
 
 type TextFragment = (context: {
   /* prettier-ignore */
-  config: Pick<TextConfig, 'width' | 'height' | 'color' | 'font' | 'lineHeight' | 'textBaseline'>
+  config: Pick<TextConfig, 'width' | 'height' | 'color' | 'font' | 'lineHeight' | 'textBaseline' | 'textAlign'>
   canvas: CanvasContext
   state: {
     offsetX: number
@@ -76,7 +77,13 @@ const drawTextFragment: TextFragment = ({ config, canvas, state }) => {
       canvas.context.textBaseline = config.textBaseline
       canvas.context.fillStyle = props?.color || config.color
       canvas.context.font = props?.font || config.font
-      canvas.context.fillText(characters[i], state.offsetX, state.offsetY)
+      canvas.context.textAlign = config.textAlign
+
+      canvas.context.fillText(
+        characters[i],
+        config.textAlign === 'center' ? config.width / 2 : state.offsetX,
+        state.offsetY
+      )
 
       state.offsetX += size
     }
@@ -93,6 +100,7 @@ const drawText: ElementHandler<TextConfig> = (config, { context, element, ratio 
     color = 'black',
     font = 'normal 400 14px sans-serif',
     textOffsetY = 0,
+    textAlign = 'start',
     textBaseline = 'alphabetic',
     border = false,
     vnodes
@@ -120,7 +128,7 @@ const drawText: ElementHandler<TextConfig> = (config, { context, element, ratio 
   textContext.scale(ratio, ratio)
 
   const textCxt = {
-    config: { width, height, color, font, lineHeight, textBaseline },
+    config: { width, height, color, font, lineHeight, textBaseline, textAlign },
     canvas: { context: textContext, element: textCanvas, ratio },
     state: {
       offsetX: 0,
@@ -132,6 +140,7 @@ const drawText: ElementHandler<TextConfig> = (config, { context, element, ratio 
 
   // handle text plugin
   const next = drawTextFragment(textCxt)
+
   vnodes.forEach(vnode => {
     switch (getVNodeComponentName(vnode)) {
       case 'poster-text-inline':

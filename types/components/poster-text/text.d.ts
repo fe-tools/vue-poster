@@ -9,6 +9,7 @@ declare type TextConfig = {
     font: string;
     lineHeight: number;
     textOffsetY: number;
+    textAlign: CanvasTextAlign;
     textBaseline: CanvasTextBaseline;
     border: boolean;
     vnodes?: VNode[];
