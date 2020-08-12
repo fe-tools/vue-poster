@@ -17,9 +17,9 @@ import Vue from 'vue'
 import Loading from '../poster-loading/index.vue'
 
 import {
-  canvas,
   initCanvas,
   canvasToDataURL,
+  CanvasContext,
   ElementHandler,
   InjectCxtToHandler
 } from '../../canvas'
@@ -43,6 +43,7 @@ export default Vue.extend({
   data() {
     return {
       elements: [] as ElementHandler[],
+      canvas: {} as CanvasContext,
       imageDate: ''
     }
   },
@@ -52,14 +53,14 @@ export default Vue.extend({
       this.elements.push(handler)
     },
     drawPoster() {
-      this.imageDate = canvasToDataURL(this.type, this.quality)
+      this.imageDate = canvasToDataURL(this.canvas, this.type, this.quality)
       this.$emit('on-render', this.imageDate)
     }
   },
   watch: {
     async elements(handlers: InjectCxtToHandler[]) {
       for (let i = 0; i < handlers.length; i++) {
-        await handlers[i](canvas)
+        await handlers[i](this.canvas)
       }
       this.drawPoster()
     }
@@ -68,7 +69,7 @@ export default Vue.extend({
     this.$on('on-element-mounted', this.addElementToQueue)
   },
   mounted() {
-    initCanvas({
+    this.canvas = initCanvas({
       width: this.width,
       height: this.height,
       ratio: this.ratio,

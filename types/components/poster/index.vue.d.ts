@@ -1,7 +1,8 @@
 import Vue from 'vue';
-import { ElementHandler } from '../../canvas';
+import { CanvasContext, ElementHandler } from '../../canvas';
 declare const _default: import("vue/types/vue").ExtendedVue<Vue, {
     elements: ElementHandler<{}>[];
+    canvas: CanvasContext;
     imageDate: string;
 }, {
     addElementToQueue(handler: ElementHandler<{}>): void;

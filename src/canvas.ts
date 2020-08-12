@@ -1,4 +1,4 @@
-const canvasElement = document.createElement('canvas')
+let canvasElement: HTMLCanvasElement
 
 interface CanvasConfig {
   width: number
@@ -22,13 +22,6 @@ export type InjectCxtToHandler = (
   canvas: CanvasContext
 ) => ReturnType<ElementHandler>
 
-export const canvas: CanvasContext = {
-  element: canvasElement,
-  /* eslint-disable @typescript-eslint/no-non-null-assertion */
-  context: canvasElement.getContext('2d')!,
-  ratio: 1
-}
-
 export function initCanvas(configs: CanvasConfig) {
   /* prettier-ignore */
   const {
@@ -37,6 +30,15 @@ export function initCanvas(configs: CanvasConfig) {
     ratio = 1,
     backgroundColor
   } = configs
+
+  canvasElement = document.createElement('canvas')
+
+  const canvas: CanvasContext = {
+    element: canvasElement,
+    /* eslint-disable @typescript-eslint/no-non-null-assertion */
+    context: canvasElement.getContext('2d')!,
+    ratio: 1
+  }
 
   canvas.element.width = width * ratio
   canvas.element.height = height * ratio
@@ -48,10 +50,16 @@ export function initCanvas(configs: CanvasConfig) {
     canvas.context.fillStyle = backgroundColor
     canvas.context.fillRect(0, 0, width * ratio, height * ratio)
   }
+
+  return canvas
 }
 
-export function canvasToDataURL(type: string, quality: number) {
-  return canvasElement.toDataURL(
+export function canvasToDataURL(
+  canvas: CanvasContext,
+  type: string,
+  quality: number
+) {
+  return canvas.element.toDataURL(
     type === 'png' ? 'image/png' : 'image/jpeg',
     quality || 1
   )
