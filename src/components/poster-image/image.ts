@@ -36,6 +36,7 @@ const drawImage: ElementHandler<ImageConfig> = async (config, canvas) => {
   canvas.context.save()
 
   if (round) {
+    canvas.context.beginPath()
     /* prettier-ignore */
     canvas.context.arc(
       offsetX + (currentWidth / 2),
@@ -47,6 +48,7 @@ const drawImage: ElementHandler<ImageConfig> = async (config, canvas) => {
   }
 
   canvas.context.drawImage(image, offsetX, offsetY, currentWidth, currentHeight)
+
   canvas.context.restore()
 
   return new Promise(resolve => resolve())
